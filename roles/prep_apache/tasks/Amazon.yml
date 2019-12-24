@@ -1,0 +1,27 @@
+---
+
+# Amazon related tasks
+#
+- name: update os
+  yum:
+    name: '*'
+    update_cache: true
+    state: latest
+
+- name: install needed packages
+  yum:
+    name:
+      - {{ nc_webserver_type }}
+      - firewalld
+    state: latest
+
+- name: open firewall ports 22/{{ nc_web_port }}/{{ nc_ssl_port }}
+  firewalld:
+    port: "{{ item }}"
+    permanent: true
+    immediate: false
+    state: enabled
+  with_items:
+    - 22/tcp
+    - '{{ nc_web_port }}/tcp'
+    - '{{ nc_ssl_port }}/tcp'

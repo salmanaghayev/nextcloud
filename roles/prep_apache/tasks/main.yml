@@ -1,0 +1,46 @@
+---
+# tasks file for prep_"{{ nc_webserver_type }}"
+
+- name: include os specific tasks
+  include_tasks: "{{ ansible_distribution }}.yml"
+    
+- include: set_apache.yml
+- include: set_apache-vhosts.yml
+- include: set_htaccess.yml
+
+- name: stop and enable "{{ nc_webserver_type }}"
+  systemd:
+    name:    "{{ nc_webserver_type }}"
+    state:   stopped
+    enabled: true
+
+- name: create some folders
+  file:
+    name: "{{ item.path }}"
+    state: directory
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - { path: '{{ nc_datadir }}',        owner: '{{ web_user[ansible_distribution] }}', group: '{{ web_group[ansible_distribution] }}', mode: '0750' }
+    - { path: '/var/www',                owner: '{{ web_user[ansible_distribution] }}', group: '{{ web_group[ansible_distribution] }}', mode: '0750' }
+    - { path: '/upload_tmp',             owner: '{{ web_user[ansible_distribution] }}', group: '{{ web_group[ansible_distribution] }}', mode: '0755' }
+
+- name: install pip netaddress
+  pip:
+    name: netaddr
+    state: latest
+  when: false
+  
+- name: set netmask
+  set_fact: 
+    net_mask: "{{ ansible_default_ipv4.network }}/{{ ansible_default_ipv4.netmask }}"
+
+- name: use ansible_fqdn if fqdn is not defined
+  set_fact:
+    fqdn: "{{ fqdn if ( fqdn ) else ansible_fqdn }}"
+
+- name: Change Directory Permission -  Apache Log
+  file: path="/var/log/{{ nc_webserver_type }}/" 
+  state=directory recurse=yes mode=0755
+
