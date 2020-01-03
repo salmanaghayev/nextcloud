@@ -2,15 +2,6 @@
 
 # Amazon related tasks
 #
-- name: add nginx yum repos
-  yum_repository:
-    name: nginx
-    description: NGINX YUM repo
-    baseurl: http://nginx.org/packages/mainline/centos/7/$basearch/
-    gpgkey: https://nginx.org/keys/nginx_signing.key
-    gpgcheck: yes
-    enabled: 0
-
 - name: update os
   yum:
     name: '*'
@@ -20,10 +11,10 @@
 - name: install needed packages
   yum:
     name:
-      - nginx
+      - httpd
       - firewalld
+      - mod_ssl
     state: latest
-    enablerepo: nginx
 
 - name: open firewall ports 22/{{ nc_web_port }}/{{ nc_ssl_port }}
   firewalld:

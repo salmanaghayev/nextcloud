@@ -1,16 +1,22 @@
 ---
-# tasks file for prep_"{{ nc_webserver_type }}"
+# tasks file for prep_httpd
 
 - name: include os specific tasks
   include_tasks: "{{ ansible_distribution }}.yml"
     
-- include: set_apache.yml
-- include: set_apache-vhosts.yml
-- include: set_htaccess.yml
+- name: set apache
+  include_tasks: set_apache.yml
 
-- name: stop and enable "{{ nc_webserver_type }}"
+- name: set default_htaccess
+  include_tasks: set_htaccess.yml
+  
+  
+- name: set apache vhosts
+  include_tasks: set_apache-vhosts.yml
+
+- name: stop and enable httpd
   systemd:
-    name:    "{{ nc_webserver_type }}"
+    name:    httpd
     state:   stopped
     enabled: true
 
@@ -41,6 +47,8 @@
     fqdn: "{{ fqdn if ( fqdn ) else ansible_fqdn }}"
 
 - name: Change Directory Permission -  Apache Log
-  file: path="/var/log/{{ nc_webserver_type }}/" 
-  state=directory recurse=yes mode=0755
-
+  file: 
+    path: "/var/log/{{ nc_webserver_type }}/" 
+    state: directory
+    recurse: yes 
+    mode: 0755

@@ -1,5 +1,13 @@
 ---
-# vars file for prep_nginx
+#vars file for prep_httpd
+nc_webserver_type: httpd
+
+c5dir_user: apache
+
+server_name: "nc.example.com"
+
+vhost_domain: "nc.example.com"
+vhost_docroot: "/var/www/nextcloud"
 
 php_socket:
   'CentOS': '/run/php-fpm/php{{ php_version }}-fpm.sock'
@@ -7,3 +15,4 @@ php_socket:
   'Fedora': '/run/php-fpm/php{{ php_version }}-fpm.sock'
   'Ubuntu': '/run/php/php{{ php_version }}-fpm.sock'
   'Debian': '/run/php/php{{ php_version }}-fpm.sock'
+

@@ -23,7 +23,8 @@ ssl_certificate_type  = 'selfsigned'
 
 #
 # Nextcloud varibales
-
+nc_webserver_type    = httpd
+#nc_webserver_type    = nginx
 # web ports
 nc_web_port          = 80
 nc_ssl_port          = 443
@@ -36,8 +37,8 @@ nc_admin             = 'admin'
 nc_passwd            = ''             # leave empty to generate random password
 
 # database settings
-# nc_db_type          = 'mysql'        # (MariaDB)
-nc_db_type           = 'pgsql'        # (PostgreSQL)
+nc_db_type          = 'mysql'        # (MariaDB)
+#nc_db_type           = 'pgsql'        # (PostgreSQL)
 nc_db_host           = 'localhost'
 nc_db                = 'nextcloud'
 nc_db_user           = 'nextcloud'

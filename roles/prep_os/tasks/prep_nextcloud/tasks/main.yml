@@ -37,9 +37,9 @@
   - name: flush all handlers to restart server
     meta: flush_handlers
 
-  - name: start nginx
+  - name: start "{{ nc_webserver_type }}"
     systemd:
-      name: nginx
+      name: "{{ nc_webserver_type }}"
       state: started
 
   - name: restart redis

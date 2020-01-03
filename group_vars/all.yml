@@ -2,16 +2,16 @@
 # Some common variables used in more then roles
  
 web_user:
-  CentOS: 'nginx'
-  Fedora: 'nginx'
-  Amazon: 'nginx'
+  CentOS: 'apache'
+  Fedora: 'apache'
+  Amazon: 'apache'
   Ubuntu: 'www-data'
   Debian: 'www-data'
 
 web_group:
-  CentOS: 'nginx'
-  Fedora: 'nginx'
-  Amazon: 'nginx'
+  CentOS: 'apache'
+  Fedora: 'apache'
+  Amazon: 'apache'
   Ubuntu: 'www-data'
   Debian: 'www-data'
 
@@ -30,7 +30,7 @@ pg_group_id:
   Debian: '70'
 
 credential_store: /etc/nextcloud
-dhparam_path:     /etc/nginx/certs/dhparam.pem
+dhparam_path:     /etc/apache/certs/dhparam.pem
 
 # example of rclone config to backup to a s3 bucket
 

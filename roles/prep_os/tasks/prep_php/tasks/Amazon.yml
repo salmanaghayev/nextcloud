@@ -56,10 +56,10 @@
     group: "{{ item.group }}"
     mode:  0770
   with_items: 
-    - { owner: nginx,  group: nginx, name: '/var/lib/php/session' }
-    - { owner: root,   group: nginx, name: '/var/lib/php/wsdlcache' }
-    - { owner: root,   group: nginx, name: '/var/lib/php/opcache' }
-    - { owner: root,   group: nginx, name: '/var/lib/php/peclxml' }
+    - { owner: apache,  group: apache, name: '/var/lib/php/session' }
+    - { owner: root,   group: apache, name: '/var/lib/php/wsdlcache' }
+    - { owner: root,   group: apache, name: '/var/lib/php/opcache' }
+    - { owner: root,   group: apache, name: '/var/lib/php/peclxml' }
 
 - name: replace opcache.max_accelerated_files=4000
   lineinfile:

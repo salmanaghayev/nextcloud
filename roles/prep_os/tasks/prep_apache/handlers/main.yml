@@ -1,0 +1,16 @@
+---
+# handlers file for prep_apache
+
+- name: restart "{{ nc_webserver_type }}"
+  listen: enable coturn
+  systemd:
+    name: "{{ nc_webserver_type }}"
+    state: restarted
+
+
+- name: restart httpd
+  listen: enable coturn
+  systemd:
+    name: httpd
+    state: restarted
+
